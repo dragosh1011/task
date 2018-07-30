@@ -1,3 +1,10 @@
+<form class="example-form">
+  <input matInput placeholder="Lat" [(ngModel)]="lat" name="lat">
+  <input matInput placeholder="Long" [(ngModel)]="lng" name="lng">
+  <button mat-raised-button color="primary" (click)="getVenues(person)">search</button>
+</form>
+
+
 <table mat-table [dataSource]="venues" class="mat-elevation-z8 venues-list">
 
   <!--- Note that these columns can be defined in any order.

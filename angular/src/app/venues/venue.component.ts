@@ -12,6 +12,8 @@ export class VenueComponent implements OnInit {
   venues: Venue[] = [];
   loading = false;
   displayedColumns: string[] = ['name', 'lat', 'lng', 'distance', 'isOpen', 'website', 'photo'];
+  lat: number;
+  lng: number;
 
   constructor(
     private venueService: VenueService
@@ -21,16 +23,17 @@ export class VenueComponent implements OnInit {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: any) => {
-        this.getVenues(position.coords.latitude, position.coords.longitude);
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.getVenues();
       });
     } else {
     }
   }
 
-  getVenues(lat: number, lng: number) {
-    this.venueService.getVenues(lat, lng).subscribe(res => {
+  getVenues() {
+    this.venueService.getVenues(this.lat, this.lng).subscribe(res => {
       console.log(res);
-      this.loading = false;
       this.venues = res as Venue[];
     }, err => {
       console.log(err);
